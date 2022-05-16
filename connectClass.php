@@ -4,10 +4,10 @@
     */
     class DbConnect
     {
-        private $server = '-------server-------';
-        private $dbname = '-------dbname-------';
-        private $user = '-------user-------';
-        private $pass = '-------pass-------';
+        private $server = 'localhost';
+        private $dbname = 'id18938961_scandiweb';
+        private $user = 'id18938961_testasifur';
+        private $pass = '$vKE|/(x6kUBzR\0';
 
         public function getConnection()
         {
