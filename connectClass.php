@@ -4,10 +4,10 @@
     */
     class DbConnect
     {
-        private $server = 'localhost';
-        private $dbname = 'id18938961_scandiweb';
-        private $user = 'id18938961_testasifur';
-        private $pass = '$vKE|/(x6kUBzR\0';
+        private $server = 'sql102.epizy.com';
+        private $dbname = 'epiz_31728413_scandiwebtest';
+        private $user = 'epiz_31728413';
+        private $pass = 'wviq3iMMKwUDX2';
 
         public function getConnection()
         {
