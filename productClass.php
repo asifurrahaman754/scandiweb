@@ -11,7 +11,7 @@ class Products extends DbConnect
         $stml = $conn->prepare($sql);
         $result = $stml->execute();
         $products = $stml->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($products);
+        return $products;
     }
 
     public function deleteProduct($productInput)
@@ -26,12 +26,10 @@ class Products extends DbConnect
                 $stmt->execute();
             }
 
-            $response = ['status' => 200, 'message' => 'Record deleted successfully.'];
+            header('Location: index.php');
         } catch (Exception $e) {
-            $response = ['status' => 404, 'message' => "Product delete failed: " . $e->getMessage()];
+            echo '<script>alert("Product delete failed. '.$e->getMessage().'");</script>';
         }
-        
-        echo json_encode($response);
     }
 
     public function addProduct($productData)
@@ -41,9 +39,6 @@ class Products extends DbConnect
 
         $size = $attribute->getAttribute('size');
         $weight = $attribute->getAttribute('weight');
-        $height = $attribute->getAttribute('height');
-        $width = $attribute->getAttribute('width');
-        $length = $attribute->getAttribute('length');
         $dimentions = $attribute->getAttribute('dimentions');
         $sku = $attribute->getAttribute('sku');
         $name = $attribute->getAttribute('name');
@@ -52,7 +47,7 @@ class Products extends DbConnect
 
         //validate the data before inserting it into the database
         $validation = new validation();
-        if ($validation->checkDuplicateSku($sku) || $validation->vaidatePoductName($name) || $validation->validateNumberFields($price, $size, $weight, $height, $width, $length)) {
+        if ($validation->checkDuplicateSku($sku)) {
             return;
         }
 
@@ -70,11 +65,9 @@ class Products extends DbConnect
             $stmt->bindParam(':dimentions', $dimentions);
             $stmt->execute();
 
-            $response = ['status' => 200, 'message' => 'Record added successfully.'];
+            header('Location: index.php');
         } catch (Exception $e) {
-            $response = ['status' => 404, 'message' => "Product add failed: " . $e->getMessage()];
+            echo '<script>alert("Product add failed. '.$e->getMessage().'");</script>';
         }
-
-        echo json_encode($response);
     }
 }

@@ -4,10 +4,10 @@
     */
     class DbConnect
     {
-        private $server = 'localhost';
-        private $dbname = 'scandiweb';
-        private $user = "root";
-        private $pass = "";
+        private $server = '---server---';
+        private $dbname = '---dbname---';
+        private $user = "---user---";
+        private $pass = "---pass---";
 
         public function getConnection()
         {
