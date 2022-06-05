@@ -1,6 +1,7 @@
 <?php
+namespace classes;
 
-class Attributes
+class ProductAttributes
 {
     private $sku;
     private $name;

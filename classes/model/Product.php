@@ -1,20 +1,21 @@
 <?php
+namespace classes\model;
 
-class Products extends DbConnect
+class Product extends \classes\DbConnect
 {
     private $workingDatabase = "products";
  
-    public function getProducts()
+    protected function getProductsSql()
     {
         $conn = $this->getConnection();
         $sql = "SELECT * FROM ".$this->workingDatabase."";
         $stml = $conn->prepare($sql);
         $result = $stml->execute();
-        $products = $stml->fetchAll(PDO::FETCH_ASSOC);
+        $products = $stml->fetchAll(\PDO::FETCH_ASSOC);
         return $products;
     }
 
-    public function deleteProduct($productInput)
+    protected function deleteProductSql($productInput)
     {
         try {
             foreach ($productInput as $productSku) {
@@ -27,30 +28,26 @@ class Products extends DbConnect
             }
 
             header('Location: index.php');
+            exit();
         } catch (Exception $e) {
             echo '<script>alert("Product delete failed. '.$e->getMessage().'");</script>';
+            exit();
         }
     }
 
-    public function addProduct($productData)
+    protected function checkDuplicateSkuSql($productSku)
     {
-        $attribute = new Attributes();
-        $attribute->setAttribute($productData);
-
-        $size = $attribute->getAttribute('size');
-        $weight = $attribute->getAttribute('weight');
-        $dimentions = $attribute->getAttribute('dimentions');
-        $sku = $attribute->getAttribute('sku');
-        $name = $attribute->getAttribute('name');
-        $price = $attribute->getAttribute('price');
-        $type = $attribute->getAttribute('type');
-
-        //validate the data before inserting it into the database
-        $validation = new validation();
-        if ($validation->checkDuplicateSku($sku)) {
-            return;
+        $sql = "SELECT COUNT(*) FROM ".$this->workingDatabase." WHERE `sku` = '$productSku'";
+        $stml = $this->getConnection()->prepare($sql);
+        $result = $stml->execute();
+        if ($stml->fetchColumn() > 0) {
+            echo "<script>alert('Product with the same SKU already exists.');</script>";
+            return true;
         }
+    }
 
+    protected function addProductSql($size, $weight, $dimentions, $sku, $name, $price, $type)
+    {
         //execute the query with bind-parameters to prevent sql injection and faster execution
         try {
             $conn = $this->getConnection();
@@ -65,7 +62,7 @@ class Products extends DbConnect
             $stmt->bindParam(':dimentions', $dimentions);
             $stmt->execute();
 
-            header('Location: index.php');
+            header('Location: ../index.php');
         } catch (Exception $e) {
             echo '<script>alert("Product add failed. '.$e->getMessage().'");</script>';
         }

@@ -1,15 +1,16 @@
 <?php
-    /**
-    * Database Connection
-    */
+    namespace classes;
+
+    use \PDO;
+
     class DbConnect
     {
-        private $server = '---server---';
-        private $dbname = '---dbname---';
-        private $user = "---user---";
-        private $pass = "---pass---";
+        private $server = '--server--';
+        private $dbname = '--dbname--';
+        private $user = "--user--";
+        private $pass = "";
 
-        public function getConnection()
+        protected function getConnection()
         {
             try {
                 $conn = new PDO('mysql:host=' .$this->server .';dbname=' . $this->dbname, $this->user, $this->pass);
