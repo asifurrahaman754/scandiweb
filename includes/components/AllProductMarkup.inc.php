@@ -1,12 +1,3 @@
-<?php
-//delete the selected products
-if (isset($_POST['delete'])) {
-    $selectedItem = $_POST['item'];
-    $productCtrl = new \classes\controller\ProductCtrl();
-    $productCtrl->deleteProduct($selectedItem);
-}
-?>
-
 <form method="POST" id="check"
     class="products-container px-3 m-auto mt-3 mb-5 row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3">
 
@@ -24,13 +15,10 @@ if (isset($_POST['delete'])) {
                 </p>
 
                 <?php
-                    if ($product['product_type'] === "DVD") {
-                        echo "<p>Size: ".$product['size']."MB</p>";
-                    } elseif ($product['product_type'] === "Furniture") {
-                        echo "<p>Dimentions: ".$product['dimentions']."</p>";
-                    } elseif ($product['product_type'] === "Book") {
-                        echo "<p>Weight: ".$product['weight']."Kg</p>";
-                    }
+                    $AllproductTypes = new \classes\ProductTypes();
+                    $productType = $AllproductTypes->getProductType($product['product_type']);
+                    
+                    echo "<p>{$productType['field']} : {$product[$productType['field']]}{$productType['append']}</p>";
                 ?>
             </div>
         </div>

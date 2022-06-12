@@ -62,7 +62,7 @@ class Product extends \classes\DbConnect
             $stmt->bindParam(':dimentions', $dimentions);
             $stmt->execute();
 
-            header('Location: ../index.php');
+            header('Location: /');
         } catch (Exception $e) {
             echo '<script>alert("Product add failed. '.$e->getMessage().'");</script>';
         }

@@ -5,12 +5,12 @@
 
     class DbConnect
     {
-        private $server = '--server--';
-        private $dbname = '--dbname--';
+        private $server = "--server--";
+        private $dbname = "--dbname--";
         private $user = "--user--";
         private $pass = "";
 
-        protected function getConnection()
+        public function getConnection()
         {
             try {
                 $conn = new PDO('mysql:host=' .$this->server .';dbname=' . $this->dbname, $this->user, $this->pass);

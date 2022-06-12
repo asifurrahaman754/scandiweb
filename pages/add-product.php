@@ -1,5 +1,4 @@
 <?php
-require "../includes/autoload.inc.php";
 
 //send the product info to the controller
 if (isset($_POST["submit"])) {
@@ -21,7 +20,7 @@ if (isset($_POST["submit"])) {
 
 ?>
 
-<?php include "../includes/components/header.inc.php"; ?>
+<?php include "includes/components/header.inc.php"; ?>
 <header>
     <nav class="nav px-3 m-auto d-flex justify-content-between align-items-center border-bottom">
         <a href="index.php">
@@ -29,7 +28,7 @@ if (isset($_POST["submit"])) {
         </a>
         <div class="nav-list d-flex align-items-center">
             <button type="submit" form="product_form" name="submit" class="btn btn-primary mt-3 me-2">Save</button>
-            <a href="../index.php" class="btn btn-danger mt-3">Cancel</a>
+            <a href="/" class="btn btn-danger mt-3">Cancel</a>
         </div>
     </nav>
 </header>
@@ -94,4 +93,4 @@ if (isset($_POST["submit"])) {
     </div>
 </main>
 
-<?php include "../includes/components/footer.inc.php";
+<?php include "includes/components/footer.inc.php";
